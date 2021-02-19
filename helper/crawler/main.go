@@ -1,18 +1,19 @@
 package helper
 
 import (
-	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"shopee-tracker/models"
-	"shopee-tracker/repository"
 )
 
 // Crawler crawl data
 func Crawler() {
-	URL := "https://shopee.vn/api/v4/official_shop/get_categories?tab_type=1"
-	res, err := http.Get(URL)
+	URL0 := "https://shopee.vn/"
+	URL1 := "https://shopee.vn/api/v2/item/get?itemid=3163681208&shopid=277411443"
+	client := http.Client{}
+	res, err := client.Get(URL0)
+	res, err = client.Get(URL1)
 	if err != nil {
 		log.Println(err)
 		return
@@ -24,17 +25,6 @@ func Crawler() {
 		log.Println(err)
 		return
 	}
-	// fmt.Println(string(responseBodyBytes))
 
-	var resp models.Data
-	err = json.Unmarshal(responseBodyBytes, &resp)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	cateRepo := repository.GetCategoryRepo()
-	for _, c := range resp.Data.Categories {
-		cateRepo.Save(c)
-	}
-	// fmt.Println(resp.Data.Categories)
+	fmt.Println(string(responseBodyBytes))
 }
