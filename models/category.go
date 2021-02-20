@@ -2,7 +2,7 @@ package models
 
 // Category response category
 type Category struct {
-	CategoryID int64  `json:"category_id" gorm:"primarykey"`
+	CategoryID int64  `json:"category_id" gorm:"primarykey;column:ID"`
 	Name       string `json:"name"`
 	Image      string `json:"image"`
 }

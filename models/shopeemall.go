@@ -4,7 +4,7 @@ package models
 type Shopeemall struct {
 	UserID           int64  `json:"userid"`
 	Username         string `json:"username"`
-	ShopID           int64  `json:"shopid" gorm:"primarykey"`
+	ShopID           int64  `json:"shopid" gorm:"primarykey;column:ID"`
 	ShopName         string `json:"shop_name"`
 	Logo             string `json:"logo"`
 	LogoPc           string `json:"logo_pc"`

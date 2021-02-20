@@ -2,28 +2,18 @@ package helper
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
-	"net/http"
+	"shopee-tracker/client"
 )
 
 // Crawler crawl data
 func Crawler() {
-	URL0 := "https://shopee.vn/"
-	URL1 := "https://shopee.vn/api/v2/item/get?itemid=3163681208&shopid=277411443"
-	client := http.Client{}
-	res, err := client.Get(URL0)
-	res, err = client.Get(URL1)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	defer res.Body.Close() // for garbage collection
 
-	responseBodyBytes, err := ioutil.ReadAll(res.Body)
+	URL1 := "https://shopee.vn/api/v2/item/get?itemid=3163681208&shopid=277411443"
+	client := client.NewShopeeClient()
+	responseBodyBytes, err := client.Get(URL1)
 	if err != nil {
-		log.Println(err)
-		return
+		log.Panicln(err)
 	}
 
 	fmt.Println(string(responseBodyBytes))
